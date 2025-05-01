@@ -77,7 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CharType.cs" />
-    <Compile Include="Extensions\IListExstention.cs" />
+    <Compile Include="Extensions\IListExtension.cs" />
     <Compile Include="LetterHelper.cs" />
     <Compile Include="ReadOnlyStream\IReadOnlyStream.cs" />
     <Compile Include="LetterStats.cs" />

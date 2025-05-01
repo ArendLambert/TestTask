@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace TestTask.Extensions
 {
-    public static class IListExstention
+    public static class IListExtension
     {
         public static int RemoveAll<T>(this IList<T> list, Predicate<T> match)
         {
