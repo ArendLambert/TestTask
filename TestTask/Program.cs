@@ -56,12 +56,12 @@ namespace TestTask
             stream.ResetPositionToStart();
             while (!stream.IsEof)
             {
-                char c = stream.ReadNextChar();
-                if (!LetterHelper.IsLetter(c))
+                char currentChar = stream.ReadNextChar();
+                if (!LetterHelper.IsLetter(currentChar))
                 {
                     continue;
                 }                  
-                IncStatistic(new LetterStats(c.ToString()), letterStatsDictionary);
+                IncStatistic(currentChar.ToString(), letterStatsDictionary);
             }
 
             return letterStatsDictionary.Values.ToList();
@@ -83,12 +83,12 @@ namespace TestTask
                 stream.ResetPositionToStart();
                 while (!stream.IsEof)
                 {
-                    char c = stream.ReadNextChar();
-                    if (char.ToUpper(c) == char.ToUpper(previousChar) && LetterHelper.IsLetter(c))
+                    char currentChar = stream.ReadNextChar();
+                    if (char.ToUpper(currentChar) == char.ToUpper(previousChar) && LetterHelper.IsLetter(currentChar))
                     {
-                        IncStatistic(new LetterStats(c.ToString().ToUpper() + previousChar.ToString().ToUpper()), letterStatsDictionary);                     
+                        IncStatistic(currentChar.ToString().ToUpper() + previousChar.ToString().ToUpper(), letterStatsDictionary);                     
                     }
-                    previousChar = c;
+                    previousChar = currentChar;
                 }
             }
             return letterStatsDictionary.Values.ToList();
@@ -137,16 +137,17 @@ namespace TestTask
         /// Метод увеличивает счётчик вхождений по переданной структуре.
         /// </summary>
         /// <param name="letterStats"></param>
-        private static void IncStatistic(LetterStats letterStats, IDictionary<string, LetterStats> letterStatsDictionary)
+        private static void IncStatistic(string letter, IDictionary<string, LetterStats> letterStatsDictionary)
         {
-            if(letterStatsDictionary.TryGetValue(letterStats.Letter, out LetterStats letter))
+            if(letterStatsDictionary.TryGetValue(letter, out LetterStats letterStats))
             {
-                letter.IncreaseCount();
+                letterStats.IncreaseCount();
             }
             else
             {
-                letterStatsDictionary.Add(letterStats.Letter, letterStats);
-                letterStats.IncreaseCount();
+                LetterStats newLetterStats = new LetterStats(letter);
+                letterStatsDictionary.Add(letter, newLetterStats);
+                newLetterStats.IncreaseCount();
             }
         }
     }
